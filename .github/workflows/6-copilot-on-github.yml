@@ -32,10 +32,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Get response templates
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
@@ -56,7 +56,12 @@ jobs:
           file: ${{ env.REVIEW_FILE }}
 
       - name: Disable current workflow
-        run: gh workflow disable "${{github.workflow}}"
+        run: |
+          if gh workflow view "${{ github.workflow }}" >/dev/null 2>&1; then
+            gh workflow disable "${{ github.workflow }}"
+          else
+            echo "Workflow not found or already disabled; skipping."
+          fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
