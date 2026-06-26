@@ -1,7 +1,7 @@
 import express from 'express';
 import routes from './routes.js';
 import { getApiBaseUrl } from './config.js';
-import { connectToDatabase } from './database.js';
+import { connectToDatabase } from './config/database.js';
 
 const app = express();
 const port = Number(process.env.PORT) || 8000;
