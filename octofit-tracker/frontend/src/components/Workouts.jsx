@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getApiUrl, normalizeCollectionResponse } from '../api.js';
 
+// Expected Codespaces URL shape: https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/workouts/
+
 function Workouts() {
   const [workouts, setWorkouts] = useState([]);
   const [error, setError] = useState('');

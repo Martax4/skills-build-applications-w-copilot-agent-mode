@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getApiUrl, normalizeCollectionResponse } from '../api.js';
 
+// Expected Codespaces URL shape: https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/users/
+
 function Users() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState('');
