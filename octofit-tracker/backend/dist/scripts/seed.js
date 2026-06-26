@@ -1,19 +1,15 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.seedDatabase = void 0;
-const mongoose_1 = __importDefault(require("mongoose"));
 const user_js_1 = require("../models/user.js");
 const team_js_1 = require("../models/team.js");
 const activity_js_1 = require("../models/activity.js");
 const leaderboard_js_1 = require("../models/leaderboard.js");
 const workout_js_1 = require("../models/workout.js");
+const database_js_1 = require("../database.js");
 // Seed the octofit_db database with test data
 const seedDatabase = async () => {
-    const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/octofit_db';
-    await mongoose_1.default.connect(mongoUri);
+    await (0, database_js_1.connectToDatabase)();
     console.log('Seed the octofit_db database with test data');
     await Promise.all([
         user_js_1.User.deleteMany({}),
@@ -47,7 +43,7 @@ const seedDatabase = async () => {
         { title: 'Upper Body Strength', focus: 'Strength', durationMinutes: 40, difficulty: 'Advanced' }
     ]);
     console.log(`Seeded ${users.length} users, ${teams.length} teams, ${activities.length} activities, leaderboard entries, and workouts.`);
-    await mongoose_1.default.disconnect();
+    await (0, database_js_1.disconnectFromDatabase)();
 };
 exports.seedDatabase = seedDatabase;
 (0, exports.seedDatabase)().catch((error) => {

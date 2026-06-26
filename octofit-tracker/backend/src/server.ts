@@ -1,11 +1,10 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import routes from './routes.js';
 import { getApiBaseUrl } from './config.js';
+import { connectToDatabase } from './database.js';
 
 const app = express();
 const port = Number(process.env.PORT) || 8000;
-const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/octofit_db';
 
 app.use(express.json());
 app.use(routes);
@@ -26,9 +25,8 @@ app.use((_req, res) => {
   res.status(404).json({ error: 'Not found' });
 });
 
-mongoose.connect(mongoUri)
+connectToDatabase()
   .then(() => {
-    console.log('Connected to MongoDB');
     app.listen(port, () => {
       console.log(`Backend listening on port ${port}`);
       console.log(`API base URL: ${getApiBaseUrl()}`);
