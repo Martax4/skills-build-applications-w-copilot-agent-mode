@@ -5,6 +5,15 @@ const getApiBaseUrl = () => {
     return `https://${codespaceName}-8000.app.github.dev`;
   }
 
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname;
+    const codespaceMatch = host.match(/^([a-z0-9-]+)-5173\.app\.github\.dev$/i);
+
+    if (codespaceMatch) {
+      return `https://${codespaceMatch[1]}-8000.app.github.dev`;
+    }
+  }
+
   return 'http://localhost:8000';
 };
 
