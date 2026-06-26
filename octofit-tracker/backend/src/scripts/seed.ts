@@ -10,6 +10,7 @@ export const seedDatabase = async (): Promise<void> => {
   await connectToDatabase();
   console.log('Seed the octofit_db database with test data');
 
+  
   await Promise.all([
     User.deleteMany({}),
     Team.deleteMany({}),
